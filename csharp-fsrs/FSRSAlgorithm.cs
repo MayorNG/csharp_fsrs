@@ -19,7 +19,7 @@ namespace csharp_fsrs
             // Ref: https://github.com/open-spaced-repetition/fsrs4anki/wiki/The-Algorithm#fsrs-45
             // The formula used is : I(r,S) = S / FACTOR ∙ (r^{1 / DECAY} - 1)
             FACTOR = Math.Pow(0.9, 1 / this.DECAY) - 1;
-            _intervalModifier = (Math.Pow(Param.RequestRetention, 1 / DECAY)) / FACTOR;
+            _intervalModifier = (Math.Pow(Param.RequestRetention, 1 / DECAY) - 1) / FACTOR;
         }
 
         /// <summary>
@@ -173,7 +173,7 @@ namespace csharp_fsrs
         private double NextRecallStability(double d, double s, double r, Grade g)
         {
             var hardPenalty = Rating.Hard == (Rating)g ? Param.Weights[15] : 1;
-            var easyBonus = Rating.Easy == (Rating)g ? Param.Weights[15] : 1;
+            var easyBonus = Rating.Easy == (Rating)g ? Param.Weights[16] : 1;
             return
                 s *
                 (

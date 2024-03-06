@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace csharp_fsrs
+﻿namespace csharp_fsrs
 {
     public static class Default
     {
