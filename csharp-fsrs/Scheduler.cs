@@ -9,27 +9,27 @@ namespace csharp_fsrs
         /// Scheduled Card after graded as "Again" 
         /// </summary>
         public Card Again;
-        
+
         /// <summary>
         /// Scheduled Card after graded as "Hard" 
         /// </summary>
         public Card Hard;
-        
+
         /// <summary>
         /// Scheduled Card after graded as "Good" 
         /// </summary>
         public Card Good;
-        
+
         /// <summary>
         /// Scheduled Card after graded as "Easy" 
         /// </summary>
         public Card Easy;
-        
+
         /// <summary>
         /// <c>LastReview</c> of the Original card
         /// </summary>
         private DateTime _prevLastReview;
-        
+
         /// <summary>
         /// <c>ElapsedDays</c> of the Original card
         /// </summary>
@@ -52,7 +52,7 @@ namespace csharp_fsrs
             Good = new Card(card);
             Easy = new Card(card);
         }
-        
+
         /// <summary>
         /// Update all Scheduled Cards' state according to their grade
         /// <code>
@@ -88,10 +88,12 @@ namespace csharp_fsrs
                     Hard.State = State.Review;
                     Good.State = State.Review;
                     Easy.State = State.Review;
+                    Again.Lapses += 1;
                     break;
                 default:
                     throw new Exception("Unknown State");
             }
+
             return this;
         }
 
@@ -109,7 +111,7 @@ namespace csharp_fsrs
             Hard.ScheduledDays = hardInterval;
             Good.ScheduledDays = goodInterval;
             Easy.ScheduledDays = easyInterval;
-            
+
             Again.Due = now.AddMinutes(5);
             Hard.Due = hardInterval > 0 ? now.AddDays(hardInterval) : now.AddMinutes(10);
             Good.Due = now.AddDays(goodInterval);
